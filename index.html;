@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GawiLaprak Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #FFDDA6; /* Warna pinggiran blur */
+            --bg-main: #FFF4E0; /* Warna krem background */
+            --bg-header: #FFC300; /* Warna kuning header */
+            --card-bg: #FFFFFF;
+            --text-dark: #2B2B2B;
+            --text-light: #7A7A7A;
+            --accent: #FF8E00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--bg-body);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Main App Container */
+        .app-container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--bg-main);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo { font-size: 24px; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
+        .logo-dots { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+        .logo-dots span { width: 6px; height: 6px; background: var(--text-dark); border-radius: 50%; }
+
+        nav ul { display: flex; list-style: none; gap: 30px; font-weight: 500; }
+        nav ul li a { text-decoration: none; color: var(--text-dark); }
+        nav ul li a.active { color: var(--accent); font-weight: 600; }
+
+        .balance-info { display: flex; align-items: center; gap: 15px; font-weight: 600; font-size: 18px; }
+        .cart-icon { position: relative; width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 12px; width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+
+        /* Top Yellow Shape */
+        .header-bg {
+            position: absolute;
+            top: 80px; left: 30px; right: 30px; height: 350px;
+            background: linear-gradient(180deg, var(--bg-header) 0%, rgba(255,195,0,0) 100%);
+            border-radius: 30px;
+            z-index: 1;
+        }
+
+        /* Hero Section (Featured Product) */
+        .hero-section {
+            position: relative;
+            z-index: 2;
+            padding: 0 50px;
+            margin-top: 20px;
+        }
+        
+        .hero-title-area {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+        }
+        .hero-title-area h1 { font-size: 32px; font-weight: 700; text-align: center; flex: 1; }
+
+        .featured-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 15px 35px rgba(255, 195, 0, 0.15), inset 0 0 0 2px rgba(255,255,255,0.5);
+            gap: 40px;
+        }
+
+        .featured-info { flex: 1; }
+        .featured-info h2 { font-size: 36px; color: #3b3987; margin-bottom: 15px; line-height: 1.2; }
+        .featured-info p { color: var(--text-light); margin-bottom: 30px; }
+        
+        .featured-image-container {
+            flex: 1; display: flex; justify-content: center; position: relative;
+        }
+        .circle-bg { width: 300px; height: 300px; border-radius: 50%; border: 2px solid rgba(255, 142, 0, 0.2); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; }
+        .circle-bg::after { content: ''; width: 250px; height: 250px; background: rgba(255, 255, 255, 0.5); border-radius: 50%; }
+        .featured-image-container img { width: 120%; max-width: 400px; z-index: 2; transform: rotate(-15deg); filter: drop-shadow(0 20px 20px rgba(0,0,0,0.2)); transition: transform 0.3s; }
+        .featured-image-container img:hover { transform: rotate(-5deg) scale(1.05); }
+
+        .featured-price-area { text-align: center; margin-top: 250px; z-index: 3; position: relative; font-size: 28px; font-weight: 700; color: #3b3987; }
+
+        .featured-action { flex: 1; }
+        .options-group { margin-bottom: 20px; }
+        .options-group label { display: block; font-weight: 600; margin-bottom: 10px; font-size: 14px; }
+        .sizes { display: flex; gap: 10px; flex-wrap: wrap; }
+        .size-btn { padding: 8px 15px; background: white; border: 1px solid #eee; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .size-btn:hover, .size-btn.active { background: var(--bg-header); border-color: var(--bg-header); font-weight: bold; }
+        
+        .btn-order { background: var(--text-dark); color: white; border: none; padding: 15px 30px; font-size: 16px; font-weight: 600; border-radius: 30px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin-top: 10px; }
+        .btn-order:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0,0,0,0.3); }
+
+        /* Product Grid Section */
+        .products-section { padding: 50px; position: relative; z-index: 2; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+        .product-card { background: white; border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.03); cursor: pointer; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+        .product-card img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px; border-radius: 10px; transition: 0.3s; }
+        .product-card:hover img { transform: scale(1.1); }
+        .product-card h3 { font-size: 16px; margin-bottom: 10px; color: var(--text-dark); }
+        .product-card .price { font-weight: 700; color: var(--accent); font-size: 18px; margin-bottom: 15px; }
+        .btn-grid-order { background: var(--bg-main); color: var(--text-dark); border: 2px solid var(--bg-header); padding: 8px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; transition: 0.3s; width: 100%; }
+        .btn-grid-order:hover { background: var(--bg-header); }
+
+        /* Face ID Overlay Animation */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: 0.3s; }
+        .overlay.active { opacity: 1; visibility: visible; }
+        
+        .face-id-box { background: white; width: 250px; height: 250px; border-radius: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3); transform: scale(0.8); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .overlay.active .face-id-box { transform: scale(1); }
+
+        .face-icon-container { width: 100px; height: 100px; border: 3px solid #ddd; border-radius: 20px; position: relative; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        
+        /* Face SVG */
+        .face-svg { width: 60px; height: 60px; fill: none; stroke: var(--text-dark); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: 0.3s; }
+        
+        /* Scan Line */
+        .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: #00ff88; box-shadow: 0 0 10px #00ff88; animation: scan 1.5s infinite linear; display: none; }
+        
+        /* Checkmark SVG (Hidden initially) */
+        .check-svg { width: 60px; height: 60px; fill: none; stroke: #00ff88; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 100; stroke-dashoffset: 100; position: absolute; display: none; }
+
+        .face-id-text { margin-top: 20px; font-weight: 600; color: var(--text-dark); font-size: 16px; }
+
+        /* Animation Keyframes */
+        @keyframes scan { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+        @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+        @keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        /* State Classes for JS */
+        .is-scanning .scan-line { display: block; }
+        .is-scanning .face-svg { opacity: 0.5; }
+        .is-success .face-icon-container { border-color: #00ff88; background: #f0fff8; animation: pop 0.4s ease; }
+        .is-success .face-svg { display: none; }
+        .is-success .scan-line { display: none; }
+        .is-success .check-svg { display: block; animation: drawCheck 0.5s ease forwards; }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .featured-card { flex-direction: column; padding: 30px; text-align: center; }
+            .featured-image-container { order: -1; margin-bottom: 20px; }
+            .featured-price-area { margin-top: 0; margin-bottom: 20px; }
+            .hero-title-area h1 { font-size: 24px; }
+            nav ul { display: none; } /* Hide nav on mobile for simplicity */
+        }
+        
+        @media (max-width: 600px) {
+            header { padding: 20px; flex-direction: column; gap: 15px; }
+            .hero-section, .products-section { padding: 20px; }
+            .header-bg { top: 120px; left: 10px; right: 10px; }
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header-bg"></div>
+
+        <header>
+            <div class="logo">
+                <div class="logo-dots"><span></span><span></span><span></span><span></span></div>
+                GawiLaprak Shop
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#" class="active">Shop</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="balance-info">
+                <span id="user-balance">Rp1.500.000</span>
+                <div class="cart-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <div class="cart-badge">3</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero-section">
+            <div class="hero-title-area">
+                <p>Home / <b>Product details</b></p>
+                <h1>Product Details</h1>
+                <p style="text-align: right; cursor:pointer;">Next Product &rarr;</p>
+            </div>
+
+            <div class="featured-card">
+                <div class="featured-info">
+                    <h2 id="feat-name">Nike Air Max 270<br>to Chuck Taylors</h2>
+                    <p>Sepatu paling populer tahun ini dengan desain yang menyesuaikan bentuk kaki, memberikan kenyamanan maksimal untuk aktivitas sehari-hari.</p>
+                </div>
+
+                <div class="featured-image-container">
+                    <div class="circle-bg"></div>
+                    <img id="feat-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Featured Shoe">
+                </div>
+
+                <div class="featured-action">
+                    <div class="featured-price-area" id="feat-price">Rp2.900.000</div>
+                    <div class="options-group" style="margin-top: 20px;">
+                        <label>Size:</label>
+                        <div class="sizes">
+                            <button class="size-btn">37</button>
+                            <button class="size-btn active">38</button>
+                            <button class="size-btn">39</button>
+                            <button class="size-btn">40</button>
+                            <button class="size-btn">41</button>
+                        </div>
+                    </div>
+                    <button class="btn-order" onclick="processPayment(2900000)">Buat Pesanan</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <div class="section-header">
+                <h2>Related Product</h2>
+                <span style="color: var(--text-light); font-size: 14px;">Showing 1-30 of 30 results</span>
+            </div>
+            <div class="product-grid" id="product-container">
+                </div>
+        </section>
+    </div>
+
+    <div class="overlay" id="payment-overlay">
+        <div class="face-id-box" id="face-id-box">
+            <div class="face-icon-container">
+                <div class="scan-line"></div>
+                <svg class="face-svg" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <path d="M9 10h.01M15 10h.01M9 15c.5 1.5 1.5 2 3 2s2.5-.5 3-2"></path>
+                </svg>
+                <svg class="check-svg" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <div class="face-id-text" id="payment-text">Face ID Scanning...</div>
+        </div>
+    </div>
+
+    <script>
+        // 1. PENGATURAN SALDO AWAL
+        let currentBalance = 15000000; // Saya set 15 Juta agar cukup untuk demo, ubah ke 1500000 jika ingin tes gagal.
+        let currentTempPrice = 0;
+
+        // 2. DATABASE PRODUK (BISA DI-CUSTOM NAMA, HARGA, DAN LINK GAMBAR)
+        // Format: { name: "Nama Produk", price: Harga_Angka, img: "Link_Gambar" }
+        const products = [
+            { name: "Nike Air Force 1", price: 1200000, img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80" },
+            { name: "Adidas Ultraboost", price: 2100000, img: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=400&q=80" },
+            { name: "Puma RS-X", price: 1500000, img: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=400&q=80" },
+            { name: "Vans Old Skool", price: 850000, img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=400&q=80" },
+            { name: "Converse Chuck 70", price: 990000, img: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=400&q=80" },
+            { name: "New Balance 550", price: 1800000, img: "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=400&q=80" },
+            { name: "Reebok Classic", price: 1100000, img: "https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=400&q=80" },
+            { name: "Asics Gel-Kayano", price: 2300000, img: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=400&q=80" },
+            { name: "Nike Dunk Low", price: 1650000, img: "https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=400&q=80" }
+        ];
+
+        // Generate sisa produk secara otomatis hingga 30 produk untuk memenuhi kuota
+        for (let i = 10; i <= 30; i++) {
+            let randomPrice = Math.floor(Math.random() * 20 + 5) * 100000; // Harga random 500k - 2.5jt
+            products.push({
+                name: `GawiLaprak Sneakers v${i}`,
+                price: randomPrice,
+                // Menggunakan placeholder API untuk gambar sepatu acak
+                img: `https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=400&q=80&sig=${i}` 
+            });
+        }
+
+        // Format Currency ke Rupiah
+        const formatRupiah = (number) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        };
+
+        // Render Balance UI
+        const updateBalanceUI = () => {
+            document.getElementById('user-balance').innerText = formatRupiah(currentBalance);
+        };
+
+        // Render Produk Grid
+        const renderProducts = () => {
+            const container = document.getElementById('product-container');
+            let htmlContent = '';
+
+            products.forEach(product => {
+                htmlContent += `
+                    <div class="product-card">
+                        <img src="${product.img}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <div class="price">${formatRupiah(product.price)}</div>
+                        <button class="btn-grid-order" onclick="processPayment(${product.price})">Beli Sekarang</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = htmlContent;
+        };
+
+        // Logika Pembayaran & Animasi Face ID
+        const processPayment = (price) => {
+            currentTempPrice = price;
+            const overlay = document.getElementById('payment-overlay');
+            const faceBox = document.getElementById('face-id-box');
+            const textElement = document.getElementById('payment-text');
+
+            // Reset state animasi
+            faceBox.className = 'face-id-box is-scanning';
+            textElement.innerText = "Face ID Scanning...";
+            textElement.style.color = "var(--text-dark)";
+            
+            // Tampilkan Overlay
+            overlay.classList.add('active');
+
+            // Simulasi proses scan selama 2 detik
+            setTimeout(() => {
+                // Cek Saldo
+                if (currentBalance >= currentTempPrice) {
+                    // Berhasil
+                    faceBox.className = 'face-id-box is-success';
+                    textElement.innerText = "Pembayaran Berhasil!";
+                    textElement.style.color = "#00ff88";
+                    
+                    // Potong saldo
+                    currentBalance -= currentTempPrice;
+                    updateBalanceUI();
+
+                    // Tutup overlay setelah 1.5 detik
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                    }, 1500);
+
+                } else {
+                    // Gagal
+                    faceBox.className = 'face-id-box'; // stop scan
+                    textElement.innerText = "Saldo Tidak Cukup!";
+                    textElement.style.color = "red";
+                    
+                    // Tutup overlay setelah 1.5 detik
+                    setTimeout(() => {
+                        overlay.classList.remove('active');
+                    }, 1500);
+                }
+            }, 2000); // 2000ms = 2 detik animasi scan
+        };
+
+        // Inisialisasi Pertama
+        updateBalanceUI();
+        renderProducts();
+    </script>
+</body>
+</html>
