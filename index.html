@@ -2,8 +2,8 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GawiLaprak Shop x Tim Panglima Batur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GawiLaprak Shop - Tim Panglima Batur LIDM 2026</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@800&family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
@@ -11,720 +11,666 @@
     
     <style>
         /* ==========================================================================
-           1. CORE SYSTEM & GLOBAL VARIABLES (MERGED)
+           1. ATOMIC CSS VARIABLES (DESIGN SYSTEM)
            ========================================================================== */
         :root {
-            /* GawiLaprak Palette */
+            /* GawiLaprak Brand Colors */
             --primary: #FFC300;
-            --primary-glow: #FFD700;
-            --accent-orange: #FF8E00;
-            --bg-soft: #FFF9F0;
-            --bg-canvas: #FDEBD0;
-            --white: #FFFFFF;
-            --text-main: #111827;
-            --text-muted: #6B7280;
+            --primary-dark: #E6B000;
+            --accent: #FF8E00;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
             
-            /* GawiPay Dark Palette */
-            --wallet-dark: #064E3B;
-            --wallet-black: #111827;
+            /* GawiPay Wallet Colors (Dark Theme) */
+            --wallet-bg: #0F172A;
+            --wallet-accent: #10B981;
+            --wallet-gold: #FACC15;
             
-            /* Tim Panglima Batur Palette (User Provided) */
-            --p-navy: #1e293b;
-            --p-gold: #facc15;
-            --p-light: #f8fafc;
+            /* Panglima Batur Identity */
+            --pb-navy: #1E293B;
+            --pb-gold: #FACC15;
+            --pb-white: #F8FAFC;
             
-            /* Transitions & Effects */
-            --shadow-premium: 0 30px 60px rgba(0,0,0,0.08);
-            --shadow-glow: 0 0 30px rgba(255, 195, 0, 0.5);
-            --transition-smooth: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            --glass: rgba(255, 255, 255, 0.7);
+            /* Typography & Spacing */
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            
+            /* Animation Timing */
+            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
         }
 
-        /* Base Reset */
+        /* ==========================================================================
+           2. BASE RESET & MOBILE OPTIMIZATION
+           ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-canvas);
+            background-color: var(--bg-body);
             color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            line-height: 1.5;
             overflow-x: hidden;
         }
 
-        /* Main Shell */
-        .app-wrapper {
+        /* Container System */
+        .container {
             width: 100%;
-            max-width: 1440px;
-            background: var(--bg-soft);
-            min-height: 100vh;
-            position: relative;
-            box-shadow: 0 0 100px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         /* ==========================================================================
-           2. ANIMATIONS & KEYFRAMES
+           3. PERSISTENT FLOATING BUTTON (PANGLIMA BATUR)
            ========================================================================== */
-        @keyframes shimmer {
-            0% { transform: translateX(-150%) skewX(-25deg); }
-            100% { transform: translateX(150%) skewX(-25deg); }
-        }
-
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes scanAnim {
-            0% { top: 0%; opacity: 0; }
-            50% { top: 50%; opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(255, 195, 0, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 195, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 195, 0, 0); }
-        }
-
-        @keyframes slideInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* ==========================================================================
-           3. FLOATING BUTTON (THE ALWAYS-ON TRIGGER)
-           ========================================================================== */
-        .floating-trigger {
+        .pb-float-btn {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
+            bottom: 25px;
+            right: 25px;
             z-index: 9999;
-            background: var(--p-navy);
-            color: var(--p-gold);
-            padding: 15px 25px;
+            background: var(--pb-navy);
+            color: var(--pb-gold);
+            padding: 12px 24px;
             border-radius: 50px;
-            font-weight: 800;
+            font-weight: 700;
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            border: 2px solid var(--p-gold);
-            transition: var(--transition-smooth);
-            animation: pulseGlow 2s infinite;
+            box-shadow: 0 10px 30px rgba(30, 41, 59, 0.3);
+            border: 2px solid var(--pb-gold);
+            transition: all 0.3s var(--ease-out);
+            animation: floatAnim 3s infinite ease-in-out;
         }
 
-        .floating-trigger:hover {
-            transform: scale(1.05) translateY(-5px);
-            background: var(--p-gold);
-            color: var(--p-navy);
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pb-float-btn:hover {
+            background: var(--pb-gold);
+            color: var(--pb-navy);
+            transform: scale(1.05);
         }
 
         /* ==========================================================================
-           4. NAVIGATION (HEADER)
+           4. NAVIGATION BAR (RESPONSIVE)
            ========================================================================== */
         header {
-            padding: 30px 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .brand-logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 26px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 800;
-        }
-
-        .brand-logo span { color: var(--accent-orange); }
-
-        .nav-menu {
+        .nav-wrapper {
+            height: 70px;
             display: flex;
-            gap: 40px;
-            list-style: none;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .nav-menu a {
+        .brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
             text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 700;
-            font-size: 14px;
-            transition: var(--transition-smooth);
+            color: var(--pb-navy);
         }
 
-        .nav-menu a:hover, .nav-menu a.active {
-            color: var(--text-main);
+        .brand span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--text-muted); 
+            font-weight: 600; 
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a.active { color: var(--pb-navy); }
+
+        /* Mobile Nav Hide */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-wrapper { padding: 0 15px; }
         }
 
         /* ==========================================================================
-           5. GAWIPAY WALLET SECTION
+           5. VIEW SYSTEM (SPA LOGIC)
            ========================================================================== */
-        .wallet-container { padding: 40px 60px; }
+        .view { display: none; padding: 20px 0 100px; }
+        .view.active { display: block; animation: fadeIn 0.5s var(--ease-out); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           6. GAWIPAY WALLET SECTION (DARK MODE)
+           ========================================================================== */
+        .wallet-section { margin-bottom: 40px; }
 
         .wallet-card {
-            background: linear-gradient(135deg, var(--wallet-dark) 0%, #000 100%);
-            border-radius: 40px;
-            padding: 40px;
+            background: var(--wallet-bg);
+            border-radius: var(--radius-lg);
+            padding: 30px;
             color: white;
-            max-width: 450px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-xl);
+            max-width: 450px;
         }
 
-        .wallet-card::after {
+        .wallet-card::before {
             content: '';
             position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: var(--primary);
-            filter: blur(100px);
-            opacity: 0.2;
+            top: -50%; right: -50%;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
         }
 
-        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
-        .card-top .label { font-size: 11px; opacity: 0.6; text-transform: uppercase; letter-spacing: 2px; }
-        .card-top .balance { font-size: 36px; font-weight: 800; margin-top: 8px; }
-
-        .chip-icon { width: 50px; height: 38px; background: #DAA520; border-radius: 8px; margin-bottom: 20px; }
-        .card-number { font-family: 'Courier New', Courier, monospace; font-size: 20px; letter-spacing: 4px; opacity: 0.9; }
-
-        .card-actions { display: flex; gap: 15px; margin-top: 30px; }
-        .btn-wallet {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 15px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
+        .wallet-label { font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; }
+        .wallet-balance { font-size: 32px; font-weight: 800; margin: 10px 0; display: block; }
+        
+        .card-chip {
+            width: 45px; height: 35px;
+            background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
+            border-radius: 6px;
+            margin-bottom: 15px;
         }
 
-        .btn-wallet:hover { background: var(--primary); color: var(--wallet-dark); }
+        .card-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+        .card-number { font-family: monospace; font-size: 16px; letter-spacing: 2px; }
 
         /* ==========================================================================
-           6. PRODUCT GRID & VIEWS
+           7. PRODUCT CATALOG SYSTEM
            ========================================================================== */
-        .view { display: none; padding-bottom: 100px; }
-        .view.active { display: block; animation: slideInUp 0.6s ease; }
-
-        .section-title { padding: 0 60px 30px; font-size: 24px; font-weight: 800; }
-
-        .product-grid {
+        .grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 35px;
-            padding: 0 60px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
         }
 
-        .p-card {
-            background: white;
-            border-radius: 40px;
-            padding: 25px;
-            border: 1px solid rgba(0,0,0,0.02);
-            transition: var(--transition-smooth);
+        .product-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            border: 1px solid #E2E8F0;
+            transition: all 0.3s var(--ease-out);
             cursor: pointer;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
         }
 
-        .p-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--shadow-premium);
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
             border-color: var(--primary);
         }
 
-        .p-img-box {
-            background: #F9FAFB;
-            border-radius: 30px;
-            height: 220px;
+        .img-container {
+            width: 100%;
+            height: 200px;
+            background: #F1F5F9;
+            border-radius: var(--radius-md);
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
             overflow: hidden;
         }
 
-        .p-card img { width: 75%; transition: var(--transition-smooth); }
-        .p-card:hover img { transform: scale(1.1) rotate(-5deg); }
+        .img-container img {
+            width: 80%;
+            transition: 0.5s;
+        }
 
-        .p-card h3 { font-size: 16px; margin-bottom: 10px; color: var(--text-main); }
-        .p-card .p-price { font-weight: 800; color: var(--accent-orange); font-size: 20px; }
+        .product-card:hover .img-container img { transform: scale(1.1); }
 
-        /* Detail Page Layout */
-        .detail-container {
+        .product-card h3 { font-size: 16px; margin-bottom: 8px; color: var(--pb-navy); }
+        .product-price { font-size: 18px; font-weight: 800; color: var(--accent); }
+
+        /* ==========================================================================
+           8. PRODUCT DETAIL VIEW (PC & MOBILE)
+           ========================================================================== */
+        .detail-wrapper {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            padding: 0 60px;
-            margin-top: 20px;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        @media (max-width: 900px) {
+            .detail-wrapper { grid-template-columns: 1fr; padding: 20px; }
         }
 
         .detail-visual {
-            background: white;
-            border-radius: 50px;
-            padding: 60px;
+            background: #F8FAFC;
+            border-radius: var(--radius-lg);
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            padding: 40px;
         }
 
-        .detail-visual img { width: 100%; animation: floating 4s ease-in-out infinite; }
+        .detail-visual img { width: 100%; max-width: 400px; }
 
-        .detail-info h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
-        .detail-info .big-price { font-size: 34px; font-weight: 800; color: var(--accent-orange); margin-bottom: 30px; }
-        .detail-info .desc { color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
+        .detail-content h1 { font-size: 32px; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
+        .detail-price { font-size: 28px; font-weight: 800; color: var(--accent); margin-bottom: 25px; }
+        .detail-desc { color: var(--text-muted); margin-bottom: 30px; line-height: 1.8; }
 
-        /* The Yellow Glow Shimmer Button */
-        .btn-order-main {
+        .buy-btn {
             width: 100%;
-            padding: 25px;
-            background: #000;
+            background: var(--pb-navy);
             color: var(--primary);
-            border-radius: 20px;
             border: none;
+            padding: 20px;
+            border-radius: var(--radius-md);
             font-size: 18px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-weight: 700;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-smooth);
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .btn-order-main:hover {
-            color: white;
-            box-shadow: var(--shadow-glow);
-            transform: scale(1.02);
-        }
-
-        .btn-order-main::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.6s;
-        }
-
-        .btn-order-main:hover::after { left: 100%; }
+        .buy-btn:hover { background: #000; color: white; transform: scale(1.02); }
 
         /* ==========================================================================
-           7. TIM PANGLIMA BATUR PAGE STYLES (Provided by User)
+           9. TIM PANGLIMA BATUR PAGE (THE ULTIMATE VIEW)
            ========================================================================== */
-        .team-page {
-            font-family: 'Inter', sans-serif;
-            background: var(--p-light);
-            color: var(--p-navy);
+        .pb-hero {
+            background: var(--pb-navy);
+            color: white;
+            padding: 80px 0;
+            border-radius: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .team-page h1, .team-page h2, .team-page h3 { font-family: 'Poppins', sans-serif; }
-
-        .team-hero {
-            padding: 80px 10%;
+        .pb-hero-content {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
             align-items: center;
-            gap: 4rem;
+            gap: 40px;
         }
 
-        .team-hero h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; }
-        .team-hero p { font-size: 1.1rem; color: #64748b; margin-bottom: 2rem; }
+        @media (max-width: 768px) {
+            .pb-hero-content { grid-template-columns: 1fr; padding: 0 30px; text-align: center; }
+        }
 
-        .stats-box {
+        .pb-hero h1 { font-size: 42px; font-family: 'Poppins', sans-serif; line-height: 1.1; margin-bottom: 20px; }
+        .pb-hero p { opacity: 0.8; font-size: 16px; margin-bottom: 30px; }
+
+        .pb-stats-card {
             background: white;
-            padding: 2rem;
+            padding: 25px;
             border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-            position: relative;
+            color: var(--pb-navy);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
-        .prog-bar { height: 12px; background: #e2e8f0; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .prog-fill { height: 100%; background: var(--p-gold); width: 98%; }
+        .pb-progress-bg { height: 12px; background: #E2E8F0; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .pb-progress-fill { height: 100%; background: var(--pb-gold); width: 98%; }
 
-        .badge-lidm {
-            position: absolute;
-            bottom: -20px; right: -20px;
-            background: var(--p-gold);
-            padding: 1.5rem;
-            border-radius: 20px;
-            font-weight: 700;
-            color: var(--p-navy);
-        }
-
-        .team-grid-list {
+        /* Member Grid */
+        .member-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            padding: 60px 10%;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
         }
 
         .member-card {
             background: white;
-            border-radius: 25px;
             padding: 40px 20px;
+            border-radius: 24px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border: 1px solid #f1f5f9;
+            border: 1px solid #E2E8F0;
+            transition: 0.3s;
         }
 
-        .member-avatar {
-            width: 130px; height: 130px;
-            background: #f1f5f9;
+        .member-card:hover { transform: translateY(-10px); border-color: var(--pb-gold); }
+
+        .avatar-circle {
+            width: 120px; height: 120px;
+            background: #F1F5F9;
             border-radius: 50%;
             margin: 0 auto 20px;
-            display: flex;
-            align-items: center; justify-content: center;
-            font-size: 3rem;
-            color: #94a3b8;
-            border: 5px solid var(--p-gold);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 40px; color: #94A3B8;
+            border: 4px solid var(--pb-gold);
         }
 
-        .supervisor-card {
-            background: var(--p-navy);
+        .supervisor-box {
+            background: linear-gradient(135deg, var(--pb-navy) 0%, #000 100%);
             color: white;
+            padding: 50px;
             border-radius: 40px;
-            padding: 60px;
-            margin: 60px 10%;
+            margin-top: 60px;
             display: flex;
             align-items: center;
             gap: 40px;
         }
 
+        @media (max-width: 768px) { .supervisor-box { flex-direction: column; text-align: center; } }
+
         /* ==========================================================================
-           8. FACE ID & PAYMENT OVERLAY
+           10. FACE ID OVERLAY (MODAL)
            ========================================================================== */
-        .payment-overlay {
+        .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 10000;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
             display: none;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(20px);
+            align-items: center; justify-content: center;
+            backdrop-filter: blur(10px);
         }
 
-        .face-scanner {
+        .scan-box {
             background: white;
-            padding: 60px;
-            border-radius: 50px;
+            padding: 50px;
+            border-radius: 40px;
             text-align: center;
-            width: 380px;
+            width: 350px;
         }
 
-        .scan-window {
-            width: 160px; height: 160px;
-            border: 4px solid #F3F4F6;
+        .face-frame {
+            width: 180px; height: 180px;
+            border: 4px solid #F1F5F9;
             border-radius: 40px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px;
             position: relative;
             overflow: hidden;
             display: flex; align-items: center; justify-content: center;
         }
 
-        .scan-line {
+        .scanner-line {
             position: absolute;
-            width: 100%; height: 5px;
+            top: 0; width: 100%; height: 4px;
             background: #10B981;
-            box-shadow: 0 0 20px #10B981;
-            animation: scanAnim 2s infinite linear;
+            box-shadow: 0 0 15px #10B981;
+            animation: scan 2s infinite linear;
         }
 
-        .face-icon { font-size: 80px; color: #1f2937; }
-        .success-icon { font-size: 100px; color: #10B981; display: none; }
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
 
-        .face-scanner.success .scan-line, .face-scanner.success .face-icon { display: none; }
-        .face-scanner.success .success-icon { display: block; }
-
+        .success-check { font-size: 80px; color: #10B981; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="app-wrapper">
-        
-        <div class="floating-trigger" onclick="navigateTo('team-view')">
-            <i class="fas fa-users"></i>
-            <span>Tim Panglima Batur LIDM 2026</span>
-        </div>
-
-        <header>
-            <a href="#" class="brand-logo" onclick="navigateTo('home-view')">GAWI<span>LAPRAK</span></a>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#" class="active" onclick="navigateTo('home-view')">Belanja</a></li>
-                    <li><a href="#">Kategori</a></li>
-                    <li><a href="#" onclick="navigateTo('team-view')">Tentang Kami</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <main id="home-view" class="view active">
-            <section class="wallet-container">
-                <div class="wallet-card">
-                    <div class="card-top">
-                        <div>
-                            <p class="label">Total Saldo GawiPay</p>
-                            <h2 class="balance" id="main-balance">Rp 12.500.000</h2>
-                        </div>
-                        <div style="font-weight: 800; font-style: italic; color: var(--primary);">GawiPay</div>
-                    </div>
-                    <div class="chip-icon"></div>
-                    <p class="card-number">**** **** 2026 8827</p>
-                    <div class="card-actions">
-                        <button class="btn-wallet">Top Up</button>
-                        <button class="btn-wallet">Transfer</button>
-                    </div>
-                </div>
-            </section>
-
-            <h2 class="section-title">Katalog Produk Unggulan</h2>
-            <div class="product-grid" id="main-product-grid">
-                </div>
-        </main>
-
-        <main id="detail-view" class="view">
-            <div style="padding: 0 60px;">
-                <button onclick="navigateTo('home-view')" style="background: none; border: none; font-weight: 800; cursor: pointer; padding: 20px 0;">
-                    ← KEMBALI KE BERANDA
-                </button>
-            </div>
-            <div id="detail-content"></div>
-        </main>
-
-        <main id="team-view" class="view team-page">
-            <section class="team-hero">
-                <div class="hero-content">
-                    <h1>Edukasi Digital, Membangun Masa Depan.</h1>
-                    <p>Tim <b>PanglimaBatur</b> dari Universitas Lambung Mangkurat siap berkompetisi dalam LIDM 2026 Cabang Video Digital Pendidikan.</p>
-                    <div style="display: flex; gap: 15px;">
-                        <button class="btn-order-main" style="width: auto; padding: 15px 30px;">Lihat Karya</button>
-                        <button style="padding: 15px 30px; border-radius: 20px; border: 2px solid #ddd; font-weight: 700; background: white;">Pelajari Proyek</button>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="stats-box">
-                        <div style="display: flex; justify-content: space-between;">
-                            <div>
-                                <p style="font-size: 0.8rem; color: #64748b;">Progress Proyek</p>
-                                <h2 style="font-size: 2.5rem;">98%</h2>
-                            </div>
-                            <i class="fas fa-chart-line" style="font-size: 2.5rem; color: var(--p-gold);"></i>
-                        </div>
-                        <div class="prog-bar">
-                            <div class="prog-fill"></div>
-                        </div>
-                        <p style="font-size: 13px; color: #64748b;">Fokus: Inovasi & Interaktivitas</p>
-                        <div class="badge-lidm">LIDM 2026</div>
-                    </div>
-                </div>
-            </section>
-
-            <section style="padding: 80px 10%; background: white;">
-                <div style="text-align: center; margin-bottom: 50px;">
-                    <h2 style="font-size: 2.5rem;">Profil Tim PanglimaBatur</h2>
-                    <p>Mahasiswa Universitas Lambung Mangkurat</p>
-                </div>
-                <div class="team-grid-list">
-                    <div class="member-card">
-                        <div class="member-avatar"><i class="fas fa-user-tie"></i></div>
-                        <h3>Ahmad Faris Alzabar</h3>
-                        <p>Ketua Tim / Director</p>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-avatar"><i class="fas fa-camera-retro"></i></div>
-                        <h3>Ahmad Nafis Al Adieb</h3>
-                        <p>Anggota 1 / Cinematographer</p>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-avatar"><i class="fas fa-magic"></i></div>
-                        <h3>Nova Riyanti</h3>
-                        <p>Anggota 2 / Editor</p>
-                    </div>
-                    <div class="member-card">
-                        <div class="member-avatar"><i class="fas fa-pen-nib"></i></div>
-                        <h3>Maulidya Sari</h3>
-                        <p>Anggota 3 / Scriptwriter</p>
-                    </div>
-                </div>
-
-                <div class="supervisor-card">
-                    <div style="width: 150px; height: 150px; background: var(--p-gold); border-radius: 20px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 4rem;">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div>
-                        <p style="color: var(--p-gold); font-weight: 700; text-transform: uppercase;">Dosen Pembimbing</p>
-                        <h2 style="font-size: 2.5rem;">Ibu Alia Rahmi</h2>
-                        <p style="opacity: 0.8; margin-top: 10px;">Membimbing dan memberikan arahan strategis dalam pengembangan konten edukasi nasional LIDM.</p>
-                    </div>
-                </div>
-            </section>
-
-            <footer style="background: var(--p-navy); color: white; padding: 60px 10%; text-align: center;">
-                <h2 style="margin-bottom: 20px;">Panglima<span style="color: var(--p-gold);">Batur</span></h2>
-                <p style="opacity: 0.6;">&copy; 2026 Tim PanglimaBatur - ULM. All Rights Reserved.</p>
-            </footer>
-        </main>
+    <div class="pb-float-btn" onclick="showView('pb-view')">
+        <i class="fas fa-users-viewfinder"></i>
+        <span>Tim Panglima Batur LIDM 2026</span>
     </div>
 
-    <div class="payment-overlay" id="payment-overlay">
-        <div class="face-scanner" id="scanner-box">
-            <div class="scan-window">
-                <div class="scan-line"></div>
-                <div class="face-icon"><i class="fas fa-smile"></i></div>
-                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="brand" onclick="showView('home-view')">GAWI<span>LAPRAK</span></a>
+            <ul class="nav-links">
+                <li><a href="#" class="active" onclick="showView('home-view')">Shop</a></li>
+                <li><a href="#" onclick="showView('pb-view')">Our Team</a></li>
+                <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section id="home-view" class="view active">
+            <div class="wallet-section">
+                <div class="wallet-card">
+                    <span class="wallet-label">GawiPay Balance</span>
+                    <span class="wallet-balance" id="balance-display">Rp 12.500.000</span>
+                    <div class="card-chip"></div>
+                    <div class="card-meta">
+                        <span class="card-number">**** **** 2026 0001</span>
+                        <i class="fab fa-cc-visa fa-2x"></i>
+                    </div>
+                </div>
             </div>
-            <h2 id="payment-status">Memverifikasi Face ID...</h2>
-            <p id="payment-sub">Pastikan wajah Anda terlihat jelas</p>
+
+            <h2 style="margin-bottom: 25px;">Katalog Lab & Style</h2>
+            <div class="grid-layout" id="product-grid">
+                </div>
+        </section>
+
+        <section id="detail-view" class="view">
+            <button onclick="showView('home-view')" style="border: none; background: none; font-weight: 700; cursor: pointer; margin-bottom: 20px;">
+                <i class="fas fa-arrow-left"></i> Kembali Berbelanja
+            </button>
+            <div id="product-detail-root"></div>
+        </section>
+
+        <section id="pb-view" class="view">
+            <div class="pb-hero">
+                <div class="container pb-hero-content">
+                    <div>
+                        <h1>Edukasi Digital,<br>Membangun Masa Depan.</h1>
+                        <p>Tim <b>PanglimaBatur</b> Universitas Lambung Mangkurat siap bertarung di LIDM 2026 Cabang Video Digital Pendidikan.</p>
+                        <button class="buy-btn" style="width: auto; padding: 15px 40px; font-size: 14px;">Lihat Hasil Karya</button>
+                    </div>
+                    <div class="pb-stats-card">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <span style="font-size: 12px; color: #64748B;">Project Completion</span>
+                                <h3 style="font-size: 32px;">98%</h3>
+                            </div>
+                            <i class="fas fa-rocket fa-2x" style="color: var(--pb-gold);"></i>
+                        </div>
+                        <div class="pb-progress-bg">
+                            <div class="pb-progress-fill"></div>
+                        </div>
+                        <div style="background: var(--pb-gold); padding: 10px; border-radius: 12px; font-weight: 800; text-align: center; margin-top: 15px;">
+                            LIDM 2026 FINALIST
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="text-align: center; margin-bottom: 40px;">Squad Profile</h2>
+            <div class="member-grid">
+                <div class="member-card">
+                    <div class="avatar-circle"><i class="fas fa-user-tie"></i></div>
+                    <h3>Ahmad Faris Alzabar</h3>
+                    <p style="color: var(--text-muted); font-size: 14px;">Team Leader / Director</p>
+                </div>
+                <div class="member-card">
+                    <div class="avatar-circle"><i class="fas fa-camera"></i></div>
+                    <h3>Ahmad Nafis Al Adieb</h3>
+                    <p style="color: var(--text-muted); font-size: 14px;">Cinematographer</p>
+                </div>
+                <div class="member-card">
+                    <div class="avatar-circle"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3>Nova Riyanti</h3>
+                    <p style="color: var(--text-muted); font-size: 14px;">Motion Editor</p>
+                </div>
+                <div class="member-card">
+                    <div class="avatar-circle"><i class="fas fa-pen-fancy"></i></div>
+                    <h3>Maulidya Sari</h3>
+                    <p style="color: var(--text-muted); font-size: 14px;">Scriptwriter</p>
+                </div>
+            </div>
+
+            <div class="supervisor-box">
+                <div style="width: 120px; height: 120px; background: var(--pb-gold); border-radius: 20px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 50px; color: var(--pb-navy);">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <span style="color: var(--pb-gold); font-weight: 700; text-transform: uppercase; font-size: 12px;">Dosen Pembimbing</span>
+                    <h2 style="font-size: 28px; margin: 5px 0;">Ibu Alia Rahmi</h2>
+                    <p style="opacity: 0.8;">Mengarahkan visi edukasi digital agar sejalan dengan standar nasional pendidikan karakter Indonesia.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="overlay" id="payment-overlay">
+        <div class="scan-box">
+            <div class="face-frame" id="face-frame">
+                <div class="scanner-line" id="scanner-line"></div>
+                <i class="fas fa-user-astronaut fa-4x" id="face-icon" style="color: #334155;"></i>
+                <i class="fas fa-check-circle success-check" id="success-icon"></i>
+            </div>
+            <h3 id="scan-status">Memverifikasi Wajah...</h3>
+            <p id="scan-sub" style="font-size: 13px; color: #64748B; margin-top: 10px;">Pastikan Anda berada di ruang terang</p>
         </div>
     </div>
 
     <script>
-        // Data Produk
-        const PRODUCTS = [
-            {
-                id: 1,
-                name: "Nike Air Max 270 'Saffron Edition'",
-                price: 2450000,
-                img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
-                desc: "Sepatu lifestyle paling ikonik dengan bantalan udara maksimal. Sangat cocok untuk mahasiswa Universitas Lambung Mangkurat yang aktif di kampus."
-            },
-            {
-                id: 2,
-                name: "Professional Lab Coat - Chemistry Series",
-                price: 850000,
-                img: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600",
-                desc: "Jas laboratorium anti-zat kimia untuk praktikum Saponifikasi dan analisis Lipid. Dibuat dengan material berkualitas tinggi."
-            },
-            {
-                id: 3,
-                name: "Pancasila Legacy Watch (Limited)",
-                price: 1250000,
-                img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
-                desc: "Edisi terbatas jam tangan bertema kebangsaan Indonesia. Memberikan kesan wibawa bagi pemakainya."
-            },
-            {
-                id: 4,
-                name: "Digital Education Mic Kit",
-                price: 3200000,
-                img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600",
-                desc: "Peralatan audio standar kompetisi LIDM. Suara jernih untuk pembuatan video digital pendidikan yang berkualitas."
-            }
+        /**
+         * GLOBAL STATE
+         */
+        let SALDO = 12500000;
+        let SELECTED_PRODUCT = null;
+
+        // Dataset Produk (Diperbanyak hingga 50+ untuk simulasi data besar)
+        const DATABASE_PRODUK = [
+            { id: 1, name: "Chemistry Lab Coat Pro", price: 450000, img: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400", desc: "Jas laboratorium kualitas premium dengan perlindungan ekstra terhadap zat kimia organik. Standar Lab Kimia ULM." },
+            { id: 2, name: "Digital Mic for Education", price: 1200000, img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=400", desc: "Microphone condenser untuk pembuatan video pembelajaran LIDM dengan noise cancelling tingkat tinggi." },
+            { id: 3, name: "Civics Legacy Watch", price: 2100000, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400", desc: "Jam tangan eksklusif dengan ukiran filosofi Pancasila. Elegan untuk acara formal kenegaraan." },
+            { id: 4, name: "Air Max 'Borneo' Edition", price: 3450000, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", desc: "Edisi terbatas warna eksotis Kalimantan. Nyaman dipakai seharian saat praktikum lapangan." },
+            { id: 5, name: "Wetland Field Notebook", price: 85000, img: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=400", desc: "Buku catatan tahan air (waterproof) untuk riset lahan basah di Kabupaten Tana Tidung." }
         ];
 
-        // Fill data untuk memperbanyak tampilan
-        for(let i=5; i<=15; i++) {
-            PRODUCTS.push({
+        // Generate Dummy Data agar scroll panjang
+        for(let i=6; i<=60; i++) {
+            DATABASE_PRODUK.push({
                 id: i,
-                name: `GawiLaprak Premium Item #${i}`,
-                price: Math.floor(Math.random() * 1500000) + 500000,
-                img: `https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&sig=${i}`,
-                desc: "Produk berkualitas yang dikurasi khusus oleh tim GawiLaprak untuk kebutuhan mahasiswa modern di Kalimantan Selatan."
+                name: `GawiLaprak Item Elite #${i}`,
+                price: Math.floor(Math.random() * 2000000) + 100000,
+                img: `https://images.unsplash.com/photo-1512314889357-e157c22f938d?w=400&sig=${i}`,
+                desc: "Produk kurasi terbaik oleh Tim Panglima Batur untuk menunjang gaya hidup mahasiswa masa kini."
             });
         }
 
-        let currentBalance = 12500000;
-        let selectedProduct = null;
-
-        // Navigation Engine
-        function navigateTo(viewId) {
-            document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+        /**
+         * CORE FUNCTIONS
+         */
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
-            window.scrollTo(0, 0);
+            
+            // Sync Nav Active State
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            if(viewId === 'home-view') document.querySelectorAll('.nav-links a')[0].classList.add('active');
+            if(viewId === 'pb-view') document.querySelectorAll('.nav-links a')[1].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Render Home
-        function renderHome() {
-            const grid = document.getElementById('main-product-grid');
-            grid.innerHTML = PRODUCTS.map(p => `
-                <div class="p-card" onclick="openDetail(${p.id})">
-                    <div class="p-img-box"><img src="${p.img}"></div>
+        function renderCatalog() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = DATABASE_PRODUK.map(p => `
+                <div class="product-card" onclick="openProduct(${p.id})">
+                    <div class="img-container">
+                        <img src="${p.img}" alt="${p.name}">
+                    </div>
                     <h3>${p.name}</h3>
-                    <p class="p-price">Rp ${p.price.toLocaleString('id-ID')}</p>
-                    <div style="color: #F59E0B; margin-top: 10px;">★★★★★</div>
+                    <p class="product-price">Rp ${p.price.toLocaleString('id-ID')}</p>
                 </div>
             `).join('');
         }
 
-        // Render Detail
-        function openDetail(id) {
-            const p = PRODUCTS.find(x => x.id === id);
-            selectedProduct = p;
-            const content = document.getElementById('detail-content');
-            content.innerHTML = `
-                <div class="detail-container">
+        function openProduct(id) {
+            const p = DATABASE_PRODUK.find(x => x.id === id);
+            SELECTED_PRODUCT = p;
+            const root = document.getElementById('product-detail-root');
+            
+            root.innerHTML = `
+                <div class="detail-wrapper">
                     <div class="detail-visual">
                         <img src="${p.img}">
                     </div>
-                    <div class="detail-info">
+                    <div class="detail-content">
+                        <span style="background: #FEF3C7; color: #D97706; padding: 5px 12px; border-radius: 50px; font-size: 12px; font-weight: 700;">PRODUK UNGGULAN</span>
                         <h1>${p.name}</h1>
-                        <p class="big-price">Rp ${p.price.toLocaleString('id-ID')}</p>
-                        <p class="desc">${p.desc}</p>
-                        <button class="btn-order-main" onclick="startPaymentProcess()">
-                            Pesan Dengan GawiPay
-                        </button>
+                        <p class="detail-price">Rp ${p.price.toLocaleString('id-ID')}</p>
+                        <p class="detail-desc">${p.desc}</p>
+                        <div style="border-top: 1px solid #E2E8F0; padding-top: 25px;">
+                            <button class="buy-btn" onclick="processPayment()">
+                                <i class="fas fa-fingerprint"></i> Bayar Dengan GawiPay
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
-            navigateTo('detail-view');
+            showView('detail-view');
         }
 
-        // Payment Flow
-        function startPaymentProcess() {
-            if(currentBalance < selectedProduct.price) {
-                alert("Maaf, saldo GawiPay Anda tidak mencukupi.");
+        function processPayment() {
+            if(SALDO < SELECTED_PRODUCT.price) {
+                alert("Waduh! Saldo GawiPay kamu kurang nih.");
                 return;
             }
 
             const overlay = document.getElementById('payment-overlay');
-            const scanner = document.getElementById('scanner-box');
-            const status = document.getElementById('payment-status');
-            const sub = document.getElementById('payment-sub');
+            const status = document.getElementById('scan-status');
+            const sub = document.getElementById('scan-sub');
+            const line = document.getElementById('scanner-line');
+            const iconFace = document.getElementById('face-icon');
+            const iconCheck = document.getElementById('success-icon');
 
+            // Reset Modal State
             overlay.style.display = 'flex';
-            scanner.classList.remove('success');
-            status.innerText = "Memverifikasi Face ID...";
+            line.style.display = 'block';
+            iconFace.style.display = 'block';
+            iconCheck.style.display = 'none';
+            status.innerText = "Memverifikasi Wajah...";
 
+            // Simulate Scan
             setTimeout(() => {
-                scanner.classList.add('success');
-                status.innerText = "Verifikasi Berhasil!";
-                sub.innerText = "Transaksi sedang diamankan...";
+                line.style.display = 'none';
+                iconFace.style.display = 'none';
+                iconCheck.style.display = 'block';
+                status.innerText = "Pembayaran Berhasil!";
+                sub.innerText = "Wajah teridentifikasi: Mahasiswa ULM";
 
                 setTimeout(() => {
-                    currentBalance -= selectedProduct.price;
-                    document.getElementById('main-balance').innerText = `Rp ${currentBalance.toLocaleString('id-ID')}`;
+                    SALDO -= SELECTED_PRODUCT.price;
+                    document.getElementById('balance-display').innerText = `Rp ${SALDO.toLocaleString('id-ID')}`;
                     overlay.style.display = 'none';
-                    alert(`Pembayaran Berhasil! ${selectedProduct.name} akan segera dikirim.`);
-                    navigateTo('home-view');
+                    alert(`Yeay! ${SELECTED_PRODUCT.name} berhasil dibeli.`);
+                    showView('home-view');
                 }, 1500);
             }, 2500);
         }
 
-        // Init
-        renderHome();
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+            console.log("GawiLaprak 4.0 Engine Ready.");
+        });
     </script>
-</body>
+
+    </body>
 </html>
