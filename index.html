@@ -3,49 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GawiLaprak Shop - Tim Panglima Batur LIDM 2026</title>
+    <title>GawiLaprak Shop - App UI</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Montserrat:wght@800&family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         /* ==========================================================================
-           1. ATOMIC CSS VARIABLES (DESIGN SYSTEM)
+           1. CSS VARIABLES (DESIGN SYSTEM)
            ========================================================================== */
         :root {
-            /* GawiLaprak Brand Colors */
-            --primary: #FFC300;
-            --primary-dark: #E6B000;
-            --accent: #FF8E00;
-            --bg-body: #F8FAFC;
-            --bg-card: #FFFFFF;
+            --app-bg: #F5F6FA;
+            --sidebar-bg: #212121;
+            --card-bg: #FFFFFF;
+            --primary-yellow: #FACC15;
+            --text-dark: #1E1E1E;
+            --text-gray: #8D8D8D;
+            --text-light: #FFFFFF;
+            --border-color: #EAEAEA;
             
-            /* GawiPay Wallet Colors (Dark Theme) */
-            --wallet-bg: #0F172A;
-            --wallet-accent: #10B981;
-            --wallet-gold: #FACC15;
+            --radius-sm: 12px;
+            --radius-md: 24px;
+            --radius-lg: 32px;
+            --radius-xl: 40px;
             
-            /* Panglima Batur Identity */
-            --pb-navy: #1E293B;
-            --pb-gold: #FACC15;
-            --pb-white: #F8FAFC;
-            
-            /* Typography & Spacing */
-            --text-main: #1E293B;
-            --text-muted: #64748B;
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
-            
-            /* Animation Timing */
-            --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+            --shadow-soft: 0 10px 40px rgba(0,0,0,0.05);
+            --shadow-hover: 0 15px 50px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ==========================================================================
-           2. BASE RESET & MOBILE OPTIMIZATION
-           ========================================================================== */
         * {
             margin: 0;
             padding: 0;
@@ -53,110 +39,168 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        html { scroll-behavior: smooth; }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.5;
+            background-color: var(--app-bg);
+            color: var(--text-dark);
             overflow-x: hidden;
-        }
-
-        /* Container System */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            display: flex;
+            height: 100vh;
         }
 
         /* ==========================================================================
-           3. PERSISTENT FLOATING BUTTON (PANGLIMA BATUR)
+           2. SIDEBAR (DARK THEME)
            ========================================================================== */
-        .pb-float-btn {
+        .app-sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            color: var(--text-light);
+            height: 100vh;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 9999;
-            background: var(--pb-navy);
-            color: var(--pb-gold);
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 14px;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .profile-section {
             display: flex;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(30, 41, 59, 0.3);
-            border: 2px solid var(--pb-gold);
-            transition: all 0.3s var(--ease-out);
-            animation: floatAnim 3s infinite ease-in-out;
+            gap: 15px;
+            margin-bottom: 50px;
         }
 
-        @keyframes floatAnim {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            object-fit: cover;
+            border: 2px solid var(--primary-yellow);
         }
 
-        .pb-float-btn:hover {
-            background: var(--pb-gold);
-            color: var(--pb-navy);
-            transform: scale(1.05);
+        .profile-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .profile-info p {
+            font-size: 12px;
+            color: #AAAAAA;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-menu a {
+            text-decoration: none;
+            color: #AAAAAA;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            color: var(--text-light);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu a i {
+            width: 20px;
+            font-size: 18px;
+        }
+
+        .sign-out {
+            margin-top: auto;
+            color: #FF5A5F !important;
         }
 
         /* ==========================================================================
-           4. NAVIGATION BAR (RESPONSIVE)
+           3. MAIN CONTENT AREA
            ========================================================================== */
-        header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(15px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+        .main-content {
+            margin-left: 280px;
+            flex-grow: 1;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
         }
 
-        .nav-wrapper {
-            height: 70px;
+        .top-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
         }
 
-        .brand {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            text-decoration: none;
-            color: var(--pb-navy);
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
         }
 
-        .brand span { color: var(--accent); }
-
-        .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { 
-            text-decoration: none; 
-            color: var(--text-muted); 
-            font-weight: 600; 
-            font-size: 14px;
-            transition: 0.3s;
+        .cart-icon-wrapper {
+            width: 45px;
+            height: 45px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .cart-icon-wrapper:hover {
+            transform: scale(1.05);
         }
 
-        .nav-links a.active { color: var(--pb-navy); }
-
-        /* Mobile Nav Hide */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-wrapper { padding: 0 15px; }
+        .cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary-yellow);
+            color: var(--text-dark);
+            font-size: 10px;
+            font-weight: 700;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* ==========================================================================
-           5. VIEW SYSTEM (SPA LOGIC)
-           ========================================================================== */
-        .view { display: none; padding: 20px 0 100px; }
-        .view.active { display: block; animation: fadeIn 0.5s var(--ease-out); }
+        /* Views */
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .view-section.active {
+            display: block;
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -164,245 +208,349 @@
         }
 
         /* ==========================================================================
-           6. GAWIPAY WALLET SECTION (DARK MODE)
+           4. HOME VIEW ELEMENTS
            ========================================================================== */
-        .wallet-section { margin-bottom: 40px; }
+        .greeting h1 {
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
 
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 30px;
+        }
+
+        .search-bar i { color: var(--text-gray); margin-right: 15px; }
+        .search-bar input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        /* Promo Banner */
+        .promo-banner {
+            background-color: var(--sidebar-bg);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .promo-content { z-index: 2; }
+        .promo-content h2 { font-size: 20px; margin-bottom: 10px; }
+        .promo-content p { font-size: 12px; color: #AAAAAA; margin-bottom: 20px; max-width: 200px; }
+        
+        .btn-shop-now {
+            background: var(--text-light);
+            color: var(--text-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-shop-now:hover { background: var(--primary-yellow); }
+
+        .promo-img {
+            width: 150px;
+            z-index: 2;
+            filter: drop-shadow(0 20px 20px rgba(0,0,0,0.5));
+        }
+
+        /* Brands */
+        .section-title { font-size: 16px; font-weight: 700; margin-bottom: 15px; }
+        .brands-container {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            scrollbar-width: none;
+        }
+        .brands-container::-webkit-scrollbar { display: none; }
+
+        .brand-card {
+            background: var(--card-bg);
+            min-width: 80px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        .brand-card:hover, .brand-card.active { border-color: var(--primary-yellow); }
+        .brand-card i { font-size: 24px; color: var(--text-dark); }
+        .brand-card span { font-size: 12px; font-weight: 600; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-gray);
+            cursor: pointer;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+        .tab.active { color: var(--text-dark); border-bottom-color: var(--primary-yellow); }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding-bottom: 50px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+
+        .fav-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--app-bg);
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-gray);
+            border: none;
+            cursor: pointer;
+            z-index: 2;
+        }
+        .fav-btn:hover { color: #FF5A5F; }
+
+        .product-img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            transition: 0.5s;
+        }
+        .product-card:hover .product-img { transform: scale(1.08); }
+
+        .product-title { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+        .product-rating { font-size: 10px; color: #FFA41C; margin-bottom: 10px; }
+        .product-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        .product-price { font-size: 16px; font-weight: 800; }
+        .add-btn {
+            background: var(--primary-yellow);
+            color: var(--text-dark);
+            border: none;
+            width: 35px; height: 35px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        .add-btn:hover { background: var(--text-dark); color: var(--primary-yellow); }
+
+        /* ==========================================================================
+           5. DETAIL VIEW
+           ========================================================================== */
+        .back-btn {
+            background: var(--card-bg);
+            border: none;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .back-btn:hover { background: var(--text-dark); color: white; }
+
+        .detail-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .detail-image-area {
+            background: var(--app-bg);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+        .detail-image-area img { width: 100%; max-width: 300px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); }
+
+        .ar-btn {
+            position: absolute;
+            bottom: 20px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            cursor: pointer;
+        }
+
+        .detail-info h2 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+        .detail-brand { color: var(--text-gray); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; display: block; }
+        
+        .detail-features { margin: 25px 0; padding-left: 20px; }
+        .detail-features li { margin-bottom: 10px; font-size: 14px; color: #555; }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        .price-row h3 { font-size: 28px; font-weight: 800; }
+        
+        .checkout-btn {
+            background: var(--sidebar-bg);
+            color: var(--primary-yellow);
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 10px;
+            transition: var(--transition);
+        }
+        .checkout-btn:hover { background: var(--primary-yellow); color: var(--sidebar-bg); }
+
+        /* ==========================================================================
+           6. TEAM & WALLET VIEW (GAWIPAY / PANGLIMA BATUR)
+           ========================================================================== */
         .wallet-card {
-            background: var(--wallet-bg);
+            background: linear-gradient(135deg, var(--sidebar-bg) 0%, #000000 100%);
             border-radius: var(--radius-lg);
             padding: 30px;
             color: white;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-xl);
-            max-width: 450px;
+            box-shadow: var(--shadow-hover);
+            margin-bottom: 30px;
+            max-width: 500px;
         }
-
-        .wallet-card::before {
-            content: '';
+        .wallet-card::after {
+            content: '\f3d1';
+            font-family: 'Font Awesome 6 Brands';
             position: absolute;
-            top: -50%; right: -50%;
-            width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+            right: -20px;
+            bottom: -30px;
+            font-size: 150px;
+            opacity: 0.1;
+            color: var(--primary-yellow);
         }
+        .wallet-label { font-size: 12px; color: #AAAAAA; text-transform: uppercase; }
+        .wallet-balance { font-size: 36px; font-weight: 800; margin: 10px 0; display: block; color: var(--primary-yellow); }
 
-        .wallet-label { font-size: 12px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; }
-        .wallet-balance { font-size: 32px; font-weight: 800; margin: 10px 0; display: block; }
-        
-        .card-chip {
-            width: 45px; height: 35px;
-            background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
-            border-radius: 6px;
-            margin-bottom: 15px;
-        }
-
-        .card-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
-        .card-number { font-family: monospace; font-size: 16px; letter-spacing: 2px; }
-
-        /* ==========================================================================
-           7. PRODUCT CATALOG SYSTEM
-           ========================================================================== */
-        .grid-layout {
+        .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
-
-        .product-card {
-            background: var(--bg-card);
+        .team-card {
+            background: var(--card-bg);
+            padding: 30px 20px;
             border-radius: var(--radius-md);
-            padding: 20px;
-            border: 1px solid #E2E8F0;
-            transition: all 0.3s var(--ease-out);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--primary);
-        }
-
-        .img-container {
-            width: 100%;
-            height: 200px;
-            background: #F1F5F9;
-            border-radius: var(--radius-md);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .img-container img {
-            width: 80%;
-            transition: 0.5s;
-        }
-
-        .product-card:hover .img-container img { transform: scale(1.1); }
-
-        .product-card h3 { font-size: 16px; margin-bottom: 8px; color: var(--pb-navy); }
-        .product-price { font-size: 18px; font-weight: 800; color: var(--accent); }
-
-        /* ==========================================================================
-           8. PRODUCT DETAIL VIEW (PC & MOBILE)
-           ========================================================================== */
-        .detail-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 50px;
-            background: white;
-            padding: 40px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-        }
-
-        @media (max-width: 900px) {
-            .detail-wrapper { grid-template-columns: 1fr; padding: 20px; }
-        }
-
-        .detail-visual {
-            background: #F8FAFC;
-            border-radius: var(--radius-lg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-        }
-
-        .detail-visual img { width: 100%; max-width: 400px; }
-
-        .detail-content h1 { font-size: 32px; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
-        .detail-price { font-size: 28px; font-weight: 800; color: var(--accent); margin-bottom: 25px; }
-        .detail-desc { color: var(--text-muted); margin-bottom: 30px; line-height: 1.8; }
-
-        .buy-btn {
-            width: 100%;
-            background: var(--pb-navy);
-            color: var(--primary);
-            border: none;
-            padding: 20px;
-            border-radius: var(--radius-md);
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .buy-btn:hover { background: #000; color: white; transform: scale(1.02); }
-
-        /* ==========================================================================
-           9. TIM PANGLIMA BATUR PAGE (THE ULTIMATE VIEW)
-           ========================================================================== */
-        .pb-hero {
-            background: var(--pb-navy);
-            color: white;
-            padding: 80px 0;
-            border-radius: 40px;
-            margin-bottom: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pb-hero-content {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
-            gap: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .pb-hero-content { grid-template-columns: 1fr; padding: 0 30px; text-align: center; }
-        }
-
-        .pb-hero h1 { font-size: 42px; font-family: 'Poppins', sans-serif; line-height: 1.1; margin-bottom: 20px; }
-        .pb-hero p { opacity: 0.8; font-size: 16px; margin-bottom: 30px; }
-
-        .pb-stats-card {
-            background: white;
-            padding: 25px;
-            border-radius: 24px;
-            color: var(--pb-navy);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .pb-progress-bg { height: 12px; background: #E2E8F0; border-radius: 10px; margin: 15px 0; overflow: hidden; }
-        .pb-progress-fill { height: 100%; background: var(--pb-gold); width: 98%; }
-
-        /* Member Grid */
-        .member-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .member-card {
-            background: white;
-            padding: 40px 20px;
-            border-radius: 24px;
             text-align: center;
-            border: 1px solid #E2E8F0;
-            transition: 0.3s;
+            box-shadow: var(--shadow-soft);
         }
-
-        .member-card:hover { transform: translateY(-10px); border-color: var(--pb-gold); }
-
-        .avatar-circle {
-            width: 120px; height: 120px;
-            background: #F1F5F9;
+        .team-avatar {
+            width: 80px; height: 80px;
+            background: var(--app-bg);
             border-radius: 50%;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 40px; color: #94A3B8;
-            border: 4px solid var(--pb-gold);
+            font-size: 30px; color: var(--sidebar-bg);
+            border: 3px solid var(--primary-yellow);
         }
-
-        .supervisor-box {
-            background: linear-gradient(135deg, var(--pb-navy) 0%, #000 100%);
-            color: white;
-            padding: 50px;
-            border-radius: 40px;
-            margin-top: 60px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        @media (max-width: 768px) { .supervisor-box { flex-direction: column; text-align: center; } }
 
         /* ==========================================================================
-           10. FACE ID OVERLAY (MODAL)
+           7. FACE ID MODAL
            ========================================================================== */
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
             z-index: 2000;
             display: none;
             align-items: center; justify-content: center;
-            backdrop-filter: blur(10px);
         }
 
         .scan-box {
-            background: white;
-            padding: 50px;
-            border-radius: 40px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: var(--radius-xl);
             text-align: center;
-            width: 350px;
+            width: 320px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
         }
 
         .face-frame {
-            width: 180px; height: 180px;
-            border: 4px solid #F1F5F9;
-            border-radius: 40px;
-            margin: 0 auto 30px;
+            width: 150px; height: 150px;
+            border: 3px dashed #CBD5E1;
+            border-radius: 30px;
+            margin: 0 auto 25px;
             position: relative;
             overflow: hidden;
             display: flex; align-items: center; justify-content: center;
@@ -410,267 +558,383 @@
 
         .scanner-line {
             position: absolute;
-            top: 0; width: 100%; height: 4px;
-            background: #10B981;
-            box-shadow: 0 0 15px #10B981;
-            animation: scan 2s infinite linear;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--primary-yellow);
+            box-shadow: 0 0 15px var(--primary-yellow);
+            animation: scanAnim 1.5s infinite linear;
         }
 
-        @keyframes scan {
+        @keyframes scanAnim {
             0% { top: 0; }
             50% { top: 100%; }
             100% { top: 0; }
         }
 
-        .success-check { font-size: 80px; color: #10B981; display: none; }
+        /* ==========================================================================
+           8. RESPONSIVE QUERIES
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .detail-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .app-sidebar {
+                transform: translateX(-100%);
+                width: 250px;
+            }
+            .app-sidebar.open {
+                transform: translateX(0);
+                box-shadow: 20px 0 50px rgba(0,0,0,0.5);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .menu-toggle { display: block; }
+            .promo-banner { flex-direction: column; text-align: center; }
+            .promo-content p { max-width: 100%; }
+            .promo-img { margin-top: 20px; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
     </style>
 </head>
 <body>
 
-    <div class="pb-float-btn" onclick="showView('pb-view')">
-        <i class="fas fa-users-viewfinder"></i>
-        <span>Tim Panglima Batur LIDM 2026</span>
-    </div>
-
-    <header>
-        <div class="container nav-wrapper">
-            <a href="#" class="brand" onclick="showView('home-view')">GAWI<span>LAPRAK</span></a>
-            <ul class="nav-links">
-                <li><a href="#" class="active" onclick="showView('home-view')">Shop</a></li>
-                <li><a href="#" onclick="showView('pb-view')">Our Team</a></li>
-                <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
-            </ul>
+    <aside class="app-sidebar" id="sidebar">
+        <div class="profile-section">
+            <img src="https://ui-avatars.com/api/?name=Ahmad+Nafis&background=FACC15&color=1E1E1E&bold=true" alt="Profile" class="profile-pic">
+            <div class="profile-info">
+                <h3>Ahmad Nafis Al Adieb</h3>
+                <p>Mahasiswa ULM - TIP</p>
+            </div>
         </div>
-    </header>
 
-    <main class="container">
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active" onclick="switchView('home-view', this)"><i class="fas fa-home"></i> Home Page</a></li>
+            <li><a href="#" onclick="switchView('wallet-view', this)"><i class="fas fa-wallet"></i> GawiPay Wallet</a></li>
+            <li><a href="#" onclick="switchView('team-view', this)"><i class="fas fa-users"></i> Tim LIDM 2026</a></li>
+            <li><a href="#"><i class="fas fa-heart"></i> Favorite</a></li>
+            <li><a href="#"><i class="fas fa-box"></i> Orders</a></li>
+            <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+        </ul>
+
+        <a href="#" class="sidebar-menu sign-out" style="padding: 12px 15px; display: flex; gap: 15px; text-decoration: none; font-weight: 600;"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+    </aside>
+
+    <main class="main-content">
         
-        <section id="home-view" class="view active">
-            <div class="wallet-section">
-                <div class="wallet-card">
-                    <span class="wallet-label">GawiPay Balance</span>
-                    <span class="wallet-balance" id="balance-display">Rp 12.500.000</span>
-                    <div class="card-chip"></div>
-                    <div class="card-meta">
-                        <span class="card-number">**** **** 2026 0001</span>
-                        <i class="fab fa-cc-visa fa-2x"></i>
-                    </div>
-                </div>
+        <header class="top-header">
+            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <div class="cart-icon-wrapper">
+                <i class="fas fa-shopping-bag"></i>
+                <div class="cart-badge" id="cart-count">0</div>
+            </div>
+        </header>
+
+        <section id="home-view" class="view-section active">
+            <div class="greeting">
+                <h1>Let's find<br>Your Equipment!</h1>
             </div>
 
-            <h2 style="margin-bottom: 25px;">Katalog Lab & Style</h2>
-            <div class="grid-layout" id="product-grid">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search headphones, cameras, lab tools..." id="searchInput" onkeyup="filterProducts()">
+            </div>
+
+            <div class="promo-banner">
+                <div class="promo-content">
+                    <span style="background: var(--primary-yellow); color: var(--text-dark); padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-bottom: 10px; display: inline-block;">NEW ARRIVAL</span>
+                    <h2>SONY - WH 1000XM4</h2>
+                    <p>Noise Canceling Wireless Headphone. Perfect for focused study sessions.</p>
+                    <button class="btn-shop-now">Shop Now</button>
+                </div>
+                <img src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&q=80" alt="Sony Promo" class="promo-img" style="border-radius: 20px;">
+            </div>
+
+            <h3 class="section-title">Choose Brand</h3>
+            <div class="brands-container">
+                <div class="brand-card active" onclick="filterBrand('All', this)"><i class="fas fa-border-all"></i><span>All</span></div>
+                <div class="brand-card" onclick="filterBrand('Sony', this)"><i class="fab fa-neos"></i><span>Sony</span></div>
+                <div class="brand-card" onclick="filterBrand('JBL', this)"><i class="fas fa-headphones"></i><span>JBL</span></div>
+                <div class="brand-card" onclick="filterBrand('Apple', this)"><i class="fab fa-apple"></i><span>Apple</span></div>
+                <div class="brand-card" onclick="filterBrand('Lab', this)"><i class="fas fa-flask"></i><span>Lab Gear</span></div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active">Popular</div>
+                <div class="tab">Discount</div>
+                <div class="tab">Exclusive</div>
+            </div>
+
+            <div class="product-grid" id="product-list">
                 </div>
         </section>
 
-        <section id="detail-view" class="view">
-            <button onclick="showView('home-view')" style="border: none; background: none; font-weight: 700; cursor: pointer; margin-bottom: 20px;">
-                <i class="fas fa-arrow-left"></i> Kembali Berbelanja
-            </button>
-            <div id="product-detail-root"></div>
+        <section id="detail-view" class="view-section">
+            <button class="back-btn" onclick="switchView('home-view')"><i class="fas fa-arrow-left"></i></button>
+            <div id="detail-content-root">
+                </div>
         </section>
 
-        <section id="pb-view" class="view">
-            <div class="pb-hero">
-                <div class="container pb-hero-content">
+        <section id="wallet-view" class="view-section">
+            <h1 style="margin-bottom: 20px; font-weight: 800;">My Wallet</h1>
+            <div class="wallet-card">
+                <span class="wallet-label">GawiPay Active Balance</span>
+                <span class="wallet-balance" id="wallet-display">Rp 12.500.000</span>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px;">
                     <div>
-                        <h1>Edukasi Digital,<br>Membangun Masa Depan.</h1>
-                        <p>Tim <b>PanglimaBatur</b> Universitas Lambung Mangkurat siap bertarung di LIDM 2026 Cabang Video Digital Pendidikan.</p>
-                        <button class="buy-btn" style="width: auto; padding: 15px 40px; font-size: 14px;">Lihat Hasil Karya</button>
+                        <p style="font-size: 10px; color: #AAA;">CARD HOLDER</p>
+                        <p style="font-family: monospace; font-size: 16px; letter-spacing: 2px;">AHMAD NAFIS A.</p>
                     </div>
-                    <div class="pb-stats-card">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                            <div>
-                                <span style="font-size: 12px; color: #64748B;">Project Completion</span>
-                                <h3 style="font-size: 32px;">98%</h3>
-                            </div>
-                            <i class="fas fa-rocket fa-2x" style="color: var(--pb-gold);"></i>
-                        </div>
-                        <div class="pb-progress-bg">
-                            <div class="pb-progress-fill"></div>
-                        </div>
-                        <div style="background: var(--pb-gold); padding: 10px; border-radius: 12px; font-weight: 800; text-align: center; margin-top: 15px;">
-                            LIDM 2026 FINALIST
-                        </div>
-                    </div>
+                    <i class="fab fa-cc-visa fa-2x"></i>
                 </div>
             </div>
+            <h3>Transaction History</h3>
+            <p style="color: var(--text-gray); font-size: 14px; margin-top: 10px;">Belum ada transaksi bulan ini.</p>
+        </section>
 
-            <h2 style="text-align: center; margin-bottom: 40px;">Squad Profile</h2>
-            <div class="member-grid">
-                <div class="member-card">
-                    <div class="avatar-circle"><i class="fas fa-user-tie"></i></div>
-                    <h3>Ahmad Faris Alzabar</h3>
-                    <p style="color: var(--text-muted); font-size: 14px;">Team Leader / Director</p>
-                </div>
-                <div class="member-card">
-                    <div class="avatar-circle"><i class="fas fa-camera"></i></div>
-                    <h3>Ahmad Nafis Al Adieb</h3>
-                    <p style="color: var(--text-muted); font-size: 14px;">Cinematographer</p>
-                </div>
-                <div class="member-card">
-                    <div class="avatar-circle"><i class="fas fa-wand-magic-sparkles"></i></div>
-                    <h3>Nova Riyanti</h3>
-                    <p style="color: var(--text-muted); font-size: 14px;">Motion Editor</p>
-                </div>
-                <div class="member-card">
-                    <div class="avatar-circle"><i class="fas fa-pen-fancy"></i></div>
-                    <h3>Maulidya Sari</h3>
-                    <p style="color: var(--text-muted); font-size: 14px;">Scriptwriter</p>
-                </div>
+        <section id="team-view" class="view-section">
+            <div class="greeting">
+                <h1>Tim Panglima Batur<br><span style="color: var(--primary-yellow);">LIDM 2026</span></h1>
+                <p style="color: var(--text-gray); margin-bottom: 30px;">Divisi Video Digital Pendidikan - Universitas Lambung Mangkurat</p>
             </div>
-
-            <div class="supervisor-box">
-                <div style="width: 120px; height: 120px; background: var(--pb-gold); border-radius: 20px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 50px; color: var(--pb-navy);">
-                    <i class="fas fa-graduation-cap"></i>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar"><i class="fas fa-camera"></i></div>
+                    <h3 style="font-size: 16px;">Ahmad Nafis Al Adieb</h3>
+                    <p style="font-size: 12px; color: var(--text-gray);">Cinematographer</p>
                 </div>
-                <div>
-                    <span style="color: var(--pb-gold); font-weight: 700; text-transform: uppercase; font-size: 12px;">Dosen Pembimbing</span>
-                    <h2 style="font-size: 28px; margin: 5px 0;">Ibu Alia Rahmi</h2>
-                    <p style="opacity: 0.8;">Mengarahkan visi edukasi digital agar sejalan dengan standar nasional pendidikan karakter Indonesia.</p>
+                <div class="team-card">
+                    <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                    <h3 style="font-size: 16px;">Ahmad Faris Alzabar</h3>
+                    <p style="font-size: 12px; color: var(--text-gray);">Director</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3 style="font-size: 16px;">Nova Riyanti</h3>
+                    <p style="font-size: 12px; color: var(--text-gray);">Motion Editor</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><i class="fas fa-pen-fancy"></i></div>
+                    <h3 style="font-size: 16px;">Maulidya Sari</h3>
+                    <p style="font-size: 12px; color: var(--text-gray);">Scriptwriter</p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <div class="overlay" id="payment-overlay">
+    <div class="overlay" id="payment-modal">
         <div class="scan-box">
-            <div class="face-frame" id="face-frame">
+            <h3 style="margin-bottom: 20px;" id="scan-title">Face ID Payment</h3>
+            <div class="face-frame">
                 <div class="scanner-line" id="scanner-line"></div>
-                <i class="fas fa-user-astronaut fa-4x" id="face-icon" style="color: #334155;"></i>
-                <i class="fas fa-check-circle success-check" id="success-icon"></i>
+                <i class="fas fa-user-astronaut fa-4x" id="face-icon" style="color: #94A3B8;"></i>
+                <i class="fas fa-check-circle fa-4x" id="success-icon" style="color: #10B981; display: none;"></i>
             </div>
-            <h3 id="scan-status">Memverifikasi Wajah...</h3>
-            <p id="scan-sub" style="font-size: 13px; color: #64748B; margin-top: 10px;">Pastikan Anda berada di ruang terang</p>
+            <p id="scan-status" style="font-weight: 600; font-size: 14px;">Menganalisis Wajah...</p>
         </div>
     </div>
 
     <script>
-        /**
-         * GLOBAL STATE
-         */
+        // 1. STATE MANAGEMENT
         let SALDO = 12500000;
-        let SELECTED_PRODUCT = null;
+        let activeProduct = null;
+        let currentFilter = 'All';
+        let cartCount = 0;
 
-        // Dataset Produk (Diperbanyak hingga 50+ untuk simulasi data besar)
-        const DATABASE_PRODUK = [
-            { id: 1, name: "Chemistry Lab Coat Pro", price: 450000, img: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400", desc: "Jas laboratorium kualitas premium dengan perlindungan ekstra terhadap zat kimia organik. Standar Lab Kimia ULM." },
-            { id: 2, name: "Digital Mic for Education", price: 1200000, img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=400", desc: "Microphone condenser untuk pembuatan video pembelajaran LIDM dengan noise cancelling tingkat tinggi." },
-            { id: 3, name: "Civics Legacy Watch", price: 2100000, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400", desc: "Jam tangan eksklusif dengan ukiran filosofi Pancasila. Elegan untuk acara formal kenegaraan." },
-            { id: 4, name: "Air Max 'Borneo' Edition", price: 3450000, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", desc: "Edisi terbatas warna eksotis Kalimantan. Nyaman dipakai seharian saat praktikum lapangan." },
-            { id: 5, name: "Wetland Field Notebook", price: 85000, img: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=400", desc: "Buku catatan tahan air (waterproof) untuk riset lahan basah di Kabupaten Tana Tidung." }
+        // 2. MOCK DATABASE (Diperluas untuk UX e-commerce nyata)
+        const PRODUCTS = [
+            { id: 1, brand: 'Sony', name: 'Sony WH-1000XM4', price: 4200000, rating: 4.8, img: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400', desc: ['Balanced Sound Signature', 'Ideal for the Workplace', 'Wireless Range of 10m', 'Volume control built-in'] },
+            { id: 2, brand: 'JBL', name: 'JBL Tune 510BT', price: 850000, rating: 4.5, img: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400', desc: ['Pure Bass Sound', 'Up to 40 hours battery life', 'Hands-free calls', 'Multi-point connection'] },
+            { id: 3, brand: 'Apple', name: 'AirPods Max', price: 7500000, rating: 4.9, img: 'https://images.unsplash.com/photo-1628202926206-c63a34b1618f?w=400', desc: ['High-fidelity audio', 'Active Noise Cancellation', 'Transparency mode', 'Spatial audio'] },
+            { id: 4, brand: 'Sony', name: 'Sony WF-1000XM4', price: 3500000, rating: 4.7, img: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400', desc: ['Industry-leading noise canceling', 'Exceptional sound quality', 'Water resistant', 'Up to 24 hours battery'] },
+            { id: 5, brand: 'Lab', name: 'Microscope Digital 4K', price: 2100000, rating: 4.6, img: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400', desc: ['Resolusi 4K tajam', 'Cocok untuk praktikum biologi/pertanian', 'Koneksi USB ke Laptop', 'Lampu LED ring built-in'] },
+            { id: 6, brand: 'Lab', name: 'Jas Laboratorium Premium', price: 250000, rating: 4.8, img: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400', desc: ['Bahan Katun Oxford', 'Tahan percikan kimia ringan', 'Sesuai standar lab Universitas', 'Tersedia ukuran S-XXL'] }
         ];
 
-        // Generate Dummy Data agar scroll panjang
-        for(let i=6; i<=60; i++) {
-            DATABASE_PRODUK.push({
-                id: i,
-                name: `GawiLaprak Item Elite #${i}`,
-                price: Math.floor(Math.random() * 2000000) + 100000,
-                img: `https://images.unsplash.com/photo-1512314889357-e157c22f938d?w=400&sig=${i}`,
-                desc: "Produk kurasi terbaik oleh Tim Panglima Batur untuk menunjang gaya hidup mahasiswa masa kini."
+        // Generate dummy extra products
+        for(let i=7; i<=20; i++) {
+            let b = i%2===0 ? 'JBL' : 'Apple';
+            PRODUCTS.push({
+                id: i, brand: b, name: `${b} Gadget Pro Gen ${i}`, price: 1500000 + (i*10000), rating: 4.5,
+                img: `https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&sig=${i}`,
+                desc: ['Standard feature 1', 'Standard feature 2', 'Warranty 1 Year']
             });
         }
 
-        /**
-         * CORE FUNCTIONS
-         */
-        function showView(viewId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        // 3. UI RENDERING
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        }
+
+        function renderProducts(data) {
+            const grid = document.getElementById('product-list');
+            grid.innerHTML = '';
+            
+            if(data.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-gray);">Produk tidak ditemukan.</p>';
+                return;
+            }
+
+            data.forEach(p => {
+                grid.innerHTML += `
+                    <div class="product-card" onclick="openDetail(${p.id})">
+                        <button class="fav-btn" onclick="event.stopPropagation(); toggleHeart(this)"><i class="far fa-heart"></i></button>
+                        <img src="${p.img}" alt="${p.name}" class="product-img">
+                        <h3 class="product-title">${p.name}</h3>
+                        <div class="product-rating">
+                            ${'<i class="fas fa-star"></i>'.repeat(Math.floor(p.rating))} 
+                            <span style="color: var(--text-gray); font-size: 10px;">(${p.rating})</span>
+                        </div>
+                        <div class="product-bottom">
+                            <span class="product-price">${formatRupiah(p.price)}</span>
+                            <button class="add-btn" onclick="event.stopPropagation(); addToCart()"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 4. NAVIGATION & INTERACTIONS
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function switchView(viewId, el = null) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            // Show target
             document.getElementById(viewId).classList.add('active');
             
-            // Sync Nav Active State
-            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            if(viewId === 'home-view') document.querySelectorAll('.nav-links a')[0].classList.add('active');
-            if(viewId === 'pb-view') document.querySelectorAll('.nav-links a')[1].classList.add('active');
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Update sidebar active state
+            if(el) {
+                document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+                el.classList.add('active');
+            }
+            
+            // Close sidebar on mobile after click
+            if(window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        function renderCatalog() {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = DATABASE_PRODUK.map(p => `
-                <div class="product-card" onclick="openProduct(${p.id})">
-                    <div class="img-container">
-                        <img src="${p.img}" alt="${p.name}">
-                    </div>
-                    <h3>${p.name}</h3>
-                    <p class="product-price">Rp ${p.price.toLocaleString('id-ID')}</p>
-                </div>
-            `).join('');
+        function toggleHeart(btn) {
+            const icon = btn.querySelector('i');
+            if(icon.classList.contains('far')) {
+                icon.classList.replace('far', 'fas');
+                btn.style.color = '#FF5A5F';
+            } else {
+                icon.classList.replace('fas', 'far');
+                btn.style.color = 'var(--text-gray)';
+            }
         }
 
-        function openProduct(id) {
-            const p = DATABASE_PRODUK.find(x => x.id === id);
-            SELECTED_PRODUCT = p;
-            const root = document.getElementById('product-detail-root');
+        function filterBrand(brand, el) {
+            document.querySelectorAll('.brand-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            
+            let filtered = brand === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.brand === brand);
+            renderProducts(filtered);
+        }
+
+        function filterProducts() {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = PRODUCTS.filter(p => p.name.toLowerCase().includes(term));
+            renderProducts(filtered);
+        }
+
+        function addToCart() {
+            cartCount++;
+            document.getElementById('cart-count').innerText = cartCount;
+            // Simple animation
+            const badge = document.getElementById('cart-count');
+            badge.style.transform = 'scale(1.5)';
+            setTimeout(() => badge.style.transform = 'scale(1)', 200);
+        }
+
+        // 5. DETAIL & CHECKOUT LOGIC
+        function openDetail(id) {
+            activeProduct = PRODUCTS.find(p => p.id === id);
+            const root = document.getElementById('detail-content-root');
+            
+            const featuresHTML = activeProduct.desc.map(d => `<li>${d}</li>`).join('');
             
             root.innerHTML = `
-                <div class="detail-wrapper">
-                    <div class="detail-visual">
-                        <img src="${p.img}">
+                <div class="detail-container">
+                    <div class="detail-image-area">
+                        <img src="${activeProduct.img}" alt="${activeProduct.name}">
+                        <button class="ar-btn"><i class="fas fa-cube"></i> AR Checkout</button>
                     </div>
-                    <div class="detail-content">
-                        <span style="background: #FEF3C7; color: #D97706; padding: 5px 12px; border-radius: 50px; font-size: 12px; font-weight: 700;">PRODUK UNGGULAN</span>
-                        <h1>${p.name}</h1>
-                        <p class="detail-price">Rp ${p.price.toLocaleString('id-ID')}</p>
-                        <p class="detail-desc">${p.desc}</p>
-                        <div style="border-top: 1px solid #E2E8F0; padding-top: 25px;">
-                            <button class="buy-btn" onclick="processPayment()">
-                                <i class="fas fa-fingerprint"></i> Bayar Dengan GawiPay
+                    <div class="detail-info">
+                        <span class="detail-brand">${activeProduct.brand}</span>
+                        <h2>${activeProduct.name}</h2>
+                        <div style="color: #FFA41C; margin-bottom: 15px;">
+                            ${'<i class="fas fa-star"></i>'.repeat(Math.floor(activeProduct.rating))} 
+                            <span style="color: var(--text-gray); font-weight: 600;"> ${activeProduct.rating}/5.0</span>
+                        </div>
+                        
+                        <ul class="detail-features">
+                            ${featuresHTML}
+                        </ul>
+
+                        <div class="price-row">
+                            <h3>${formatRupiah(activeProduct.price)}</h3>
+                            <button class="checkout-btn" onclick="triggerFaceID()">
+                                <i class="fas fa-fingerprint"></i> Pay w/ GawiPay
                             </button>
                         </div>
                     </div>
                 </div>
             `;
-            showView('detail-view');
+            switchView('detail-view');
         }
 
-        function processPayment() {
-            if(SALDO < SELECTED_PRODUCT.price) {
-                alert("Waduh! Saldo GawiPay kamu kurang nih.");
+        function triggerFaceID() {
+            if(SALDO < activeProduct.price) {
+                alert("Saldo GawiPay tidak mencukupi!");
                 return;
             }
 
-            const overlay = document.getElementById('payment-overlay');
-            const status = document.getElementById('scan-status');
-            const sub = document.getElementById('scan-sub');
+            const modal = document.getElementById('payment-modal');
             const line = document.getElementById('scanner-line');
             const iconFace = document.getElementById('face-icon');
             const iconCheck = document.getElementById('success-icon');
+            const status = document.getElementById('scan-status');
 
-            // Reset Modal State
-            overlay.style.display = 'flex';
+            // Reset modal
+            modal.style.display = 'flex';
             line.style.display = 'block';
             iconFace.style.display = 'block';
             iconCheck.style.display = 'none';
-            status.innerText = "Memverifikasi Wajah...";
+            status.innerText = "Menganalisis Wajah...";
+            status.style.color = "var(--text-dark)";
 
             // Simulate Scan
             setTimeout(() => {
                 line.style.display = 'none';
                 iconFace.style.display = 'none';
                 iconCheck.style.display = 'block';
-                status.innerText = "Pembayaran Berhasil!";
-                sub.innerText = "Wajah teridentifikasi: Mahasiswa ULM";
+                status.innerText = "Payment Successful!";
+                status.style.color = "#10B981";
 
                 setTimeout(() => {
-                    SALDO -= SELECTED_PRODUCT.price;
-                    document.getElementById('balance-display').innerText = `Rp ${SALDO.toLocaleString('id-ID')}`;
-                    overlay.style.display = 'none';
-                    alert(`Yeay! ${SELECTED_PRODUCT.name} berhasil dibeli.`);
-                    showView('home-view');
+                    SALDO -= activeProduct.price;
+                    document.getElementById('wallet-display').innerText = formatRupiah(SALDO);
+                    modal.style.display = 'none';
+                    switchView('wallet-view', document.querySelectorAll('.sidebar-menu a')[1]);
                 }, 1500);
             }, 2500);
         }
 
         // Initialize App
         document.addEventListener('DOMContentLoaded', () => {
-            renderCatalog();
-            console.log("GawiLaprak 4.0 Engine Ready.");
+            renderProducts(PRODUCTS);
+            document.getElementById('wallet-display').innerText = formatRupiah(SALDO);
         });
-    </script>
 
-    </body>
+    </script>
+</body>
 </html>
